@@ -10,6 +10,14 @@ jobs:
       - name: Checkout Workflow Repository
         uses: actions/checkout@v4
 
+      - name: Free Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/share/boost
+          sudo apt-get clean
+
       - name: Set Up Environment Dependencies
         run: |
           sudo apt-get update
@@ -29,8 +37,8 @@ jobs:
           git config --global user.name "333kainvey"
           git config --global user.email "333kainvey@users.noreply.github.com"
           
-          # Sync basis source ROM
-          repo init -u https://github.com/crdroidandroid/android.git -b 11.0 --git-lfs
+          # Sync basis source ROM (depth=1 biar ringan)
+          repo init -u https://github.com/crdroidandroid/android.git -b 11.0 --depth=1
           
           # Local Manifest Poco F1
           mkdir -p .repo/local_manifests
@@ -43,7 +51,7 @@ jobs:
           </manifest>
           EOF
 
-          repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
+          repo sync -c -j4 --force-sync --no-clone-bundle --no-tags
 
       - name: Build ROM
         run: |
