@@ -34,13 +34,13 @@ jobs:
         run: |
           mkdir -p workspace
           cd workspace
-          git config --global user.name "333kainvey"
+          git config --global user.name "333kalnvey"
           git config --global user.email "333kainvey@users.noreply.github.com"
           
-          # Sync basis source ROM (depth=1 biar ringan)
+          # Sync basis source ROM
           repo init -u https://github.com/crdroidandroid/android.git -b 11.0 --depth=1
           
-          # Local Manifest Poco F1
+          # Inject Local Manifest Poco F1
           mkdir -p .repo/local_manifests
           cat <<EOF > .repo/local_manifests/beryllium.xml
           <?xml version="1.0" encoding="UTF-8"?>
@@ -59,4 +59,3 @@ jobs:
           source build/envsetup.sh
           lunch lineage_beryllium-userdebug
           mka bacon -j$(nproc --all)
-          
