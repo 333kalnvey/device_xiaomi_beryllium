@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p workspace
           cd workspace
-          git config --global user.name "333kalnvey"
+          git config --global user.name "333kainvey"
           git config --global user.email "333kainvey@users.noreply.github.com"
           
           # Sync basis source ROM
@@ -59,3 +59,4 @@ jobs:
           source build/envsetup.sh
           lunch lineage_beryllium-userdebug
           mka bacon -j$(nproc --all)
+          
